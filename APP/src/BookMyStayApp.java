@@ -2,13 +2,11 @@ abstract class Room {
     protected int numberOfBeds;
     protected int squareFeet;
     protected double pricePerNight;
-
     public Room(int numberOfBeds, int squareFeet, double pricePerNight) {
         this.numberOfBeds = numberOfBeds;
         this.squareFeet = squareFeet;
         this.pricePerNight = pricePerNight;
     }
-
     public void displayRoomDetails() {
         System.out.println("Beds: " + numberOfBeds);
         System.out.println("Size: " + squareFeet + " sqft");
@@ -27,13 +25,11 @@ class DoubleRoom extends Room {
         super(2, 400, 2500.0);
     }
 }
-
 class SuiteRoom extends Room {
     public SuiteRoom() {
         super(3, 750, 5000.0);
     }
 }
-
 class RoomInventory {
     Room room;
     int availableRooms;
@@ -42,26 +38,41 @@ class RoomInventory {
         this.room = room;
         this.availableRooms = availableRooms;
     }
+}
+class RoomSearchService {
 
-    public void displayInventory(String roomType) {
-        System.out.println(roomType + ":");
-        room.displayRoomDetails();
-        System.out.println("Available Rooms: " + availableRooms);
-        System.out.println();
+    public static void searchRooms(RoomInventory[] inventoryList) {
+
+        System.out.println("Room Search\n");
+
+        for (RoomInventory inv : inventoryList) {
+
+            if (inv.availableRooms > 0) {
+
+                if (inv.room instanceof SingleRoom) {
+                    System.out.println("Single Room:");
+                } else if (inv.room instanceof DoubleRoom) {
+                    System.out.println("Double Room:");
+                } else if (inv.room instanceof SuiteRoom) {
+                    System.out.println("Suite Room:");
+                }
+
+                inv.room.displayRoomDetails();
+                System.out.println("Available: " + inv.availableRooms);
+                System.out.println();
+            }
+        }
     }
 }
-
 public class BookMyStayApp {
     public static void main(String[] args) {
 
-        System.out.println("Hotel Room Inventory Status\n");
+        RoomInventory[] inventory = {
+                new RoomInventory(new SingleRoom(), 5),
+                new RoomInventory(new DoubleRoom(), 3),
+                new RoomInventory(new SuiteRoom(), 2)
+        };
 
-        RoomInventory single = new RoomInventory(new SingleRoom(), 5);
-        RoomInventory dbl = new RoomInventory(new DoubleRoom(), 3);
-        RoomInventory suite = new RoomInventory(new SuiteRoom(), 2);
-
-        single.displayInventory("Single Room");
-        dbl.displayInventory("Double Room");
-        suite.displayInventory("Suite Room");
+        RoomSearchService.searchRooms(inventory);
     }
 }
