@@ -1,5 +1,4 @@
 import java.util.*;
-
 class Reservation {
     private String guestName;
     private String roomType;
@@ -8,7 +7,6 @@ class Reservation {
         this.guestName = guestName;
         this.roomType = roomType;
     }
-
     public String getGuestName() {
         return guestName;
     }
@@ -17,7 +15,6 @@ class Reservation {
         return roomType;
     }
 }
-
 class BookingHistory {
     private List<Reservation> reservations;
 
@@ -33,7 +30,6 @@ class BookingHistory {
         return reservations;
     }
 }
-
 class BookingReportService {
     public void generateReport(List<Reservation> reservations) {
         System.out.println("Booking History Report");
@@ -42,7 +38,6 @@ class BookingReportService {
         }
     }
 }
-
 public class BookMyStayApp {
     public static void main(String[] args) {
 
